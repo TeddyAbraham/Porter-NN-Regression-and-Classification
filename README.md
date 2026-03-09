@@ -1,67 +1,130 @@
-# Porter-NN-Regression
+# Porter-Delivery-Time-Prediction (ML & Neural Networks)
 
 ## 📌 Project Overview
-This project predicts **delivery time (in minutes)** for customer orders using time-based feature engineering, preprocessing, outlier handling, and a Neural Network regression model (Keras/TensorFlow). The pipeline includes extracting datetime features, cleaning data, encoding categorical variables, and training/evaluating neural networks.
+This project predicts **food delivery time (in minutes)** using machine learning and neural network models. The workflow includes **data preprocessing, feature engineering, hypothesis testing, outlier treatment, and model building** for both **regression and classification tasks**. The objective is to identify operational drivers affecting delivery time and develop predictive models that can support **logistics optimization and delivery ETA systems**.
 
 ---
 
 ## 🔄 Process & Methodology
 
-### 1. Import & Initial EDA
-- Load dataset with `pandas.read_csv()` / `read_parquet()`
-- Inspect shape, dtypes, missing values, unique counts, and summary statistics
+### 1. Data Loading & Exploratory Data Analysis (EDA)
+- Load dataset using `pandas.read_csv()` or `read_parquet()`
+- Inspect dataset structure: shape, data types, missing values, and summary statistics
+- Analyze feature distributions and relationships
+- Identify operational variables influencing delivery time
 
-### 2. Data Preprocessing
-**Data cleaning**
-- Handle missing values (drop or impute depending on context)
+---
+
+### 2. Data Preprocessing & Feature Engineering
+
+**Data Cleaning**
+- Handle missing values using appropriate imputation or removal
 - Normalize inconsistent categorical entries
+- Convert datetime columns to proper datetime format
 
-**Feature engineering**
-- `delivery_time = actual_delivery_time - created_at` → convert to minutes
-- Extract `hour_of_day = created_at.dt.hour`
-- Extract `day_of_week = created_at.dt.weekday`
-- Use `dt` accessor (`.dt.hour`, `.dt.weekday`, `.dt.total_seconds()`)
-
-**Null handling**
-- Ensure no missing values in target or essential features; impute where needed
+**Feature Engineering**
+- `Actual_time_taken = actual_delivery_time - created_at` → converted to minutes
+- Extract time-based features:
+  - `hour_of_day`
+  - `day_of_week`
+- Derive additional operational features such as approximate restaurant preparation time
+- Use pandas datetime accessor (`.dt.hour`, `.dt.weekday`, `.dt.total_seconds()`)
 
 **Encoding**
-- One-Hot Encode categorical columns (or use target encoding if appropriate)
+- Apply **One-Hot Encoding** to categorical variables
+- Transform categorical features into model-compatible numeric format
 
 ---
 
-## 📊 Visualization & Outlier Handling
-- Plot distributions: histograms, boxplots, countplots, scatterplots
-- Detect outliers using IQR / Z-score / domain rules
-- Remove or Winsorize outliers
-- Re-plot to verify improvements
+## 📊 Visualization & Outlier Treatment
+- Use **histograms, boxplots, bar plots, and scatter plots** to explore feature distributions
+- Detect outliers using:
+  - **IQR method**
+  - **Z-score**
+  - Domain-based filtering
+- Remove or cap extreme values to stabilize model performance
+- Re-visualize distributions after outlier treatment
 
 ---
 
-## 🧪 Train/Test Split & Scaling
-- Split: `train_test_split(X, y, test_size=0.2, random_state=42)`
-- Scale numeric features with `StandardScaler` (important for NN convergence)
+## 🧪 Hypothesis Testing & Feature Importance
+- Conduct statistical hypothesis tests to evaluate relationships between variables and delivery time
+- Analyze correlations and statistical significance
+- Train tree-based models (e.g., XGBoost) to evaluate **feature importance**
+- Use insights to guide feature selection and model design
 
 ---
 
-## 🤖 Neural Network (Regression)
-**Architecture**
-- Input layer → Dense layers (varying units) → Output layer (1 neuron, linear activation)
+## 🤖 Machine Learning Models
 
-**Training**
-- Loss: `mean_squared_error`
-- Metrics: MSE, RMSE, MAE
-- Optimizer: `Adam` (adaptive learning, fast convergence)
-- Activation: `ReLU` in hidden layers (prevents vanishing gradients)
+### Regression Models
+Used to predict **exact delivery time in minutes**
 
-**Experimentation**
-- Try different layer sizes, activations, learning rates, batch sizes, and epochs
-- Monitor training vs validation loss; use EarlyStopping if required
+Examples:
+- Linear Regression
+- Random Forest Regressor
+- Gradient Boosting / XGBoost
 
----
-
-## 📈 Evaluation Metrics
+Evaluation Metrics:
 - Mean Squared Error (MSE)
 - Root Mean Squared Error (RMSE)
 - Mean Absolute Error (MAE)
-- Visualize training/validation loss curves
+
+---
+
+### Classification Models
+Used to categorize deliveries into **time-based buckets (e.g., Fast / Medium / Slow)**
+
+Examples:
+- Logistic Regression
+- Random Forest Classifier
+- Gradient Boosting Classifier
+
+Evaluation Metrics:
+- Accuracy
+- Precision
+- Recall
+- F1 Score
+- Confusion Matrix
+
+---
+
+## 🧠 Neural Network Model (Deep Learning)
+
+**Architecture**
+- Input Layer
+- Multiple Dense Hidden Layers
+- Output Layer:
+  - Linear activation for regression
+  - Sigmoid / Softmax for classification
+
+**Training Configuration**
+- Optimizer: `Adam`
+- Loss Functions:
+  - `Mean Squared Error` (Regression)
+  - `Binary/Categorical Crossentropy` (Classification)
+- Activation: `ReLU` in hidden layers
+- Feature scaling using `StandardScaler`
+
+**Model Tuning**
+- Experiment with number of layers, neurons, batch size, and epochs
+- Monitor **training vs validation loss**
+- Apply **EarlyStopping** to reduce overfitting
+
+---
+
+## 📈 Model Evaluation & Results
+- Compare performance across machine learning and neural network models
+- Evaluate prediction quality using regression and classification metrics
+- Visualize:
+  - Training vs validation loss curves
+  - Predicted vs actual delivery times
+- Analyze feature importance and operational insights
+
+---
+
+## 🚀 Business Applications
+- Improve **delivery time estimation systems**
+- Assist in **driver allocation and routing decisions**
+- Identify operational bottlenecks affecting delivery performance
+- Enhance **customer experience through more accurate ETA predictions**
