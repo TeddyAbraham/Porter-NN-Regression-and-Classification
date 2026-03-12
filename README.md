@@ -128,3 +128,8 @@ Evaluation Metrics:
 - Assist in **driver allocation and routing decisions**
 - Identify operational bottlenecks affecting delivery performance
 - Enhance **customer experience through more accurate ETA predictions**
+
+
+## 6.	Screenshots / Demos
+Show what the dashboard looks like.
+Example: ![Dashboard Preview]([https://github.com/the-mansi-goel/Ski-dashboard/blob/main/Snapshot%20of%20the%20Dahbaord.png](https://github.com/TeddyAbraham/Porter-NN-Regression-and-Classification/blob/main/Porter%20Food%20Delivery%20Analysis.png))
